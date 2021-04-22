@@ -52,8 +52,53 @@ const Content = styled.div`
 
 ```
 
+### Styled Children + Media Queries
+
+```js
+<Nav>
+  <Logo>
+    <img src="images/logo.svg" />
+  </Logo>
+</Nav>
+```
+
+```css
+
+const Logo = styled.a`
+  padding: 0;
+  width: 80px;
+  margin-top: 4px;
+  max-height: 70px;
+  font-size: 0;
+  display: block;
+
+  img {
+    display: block;
+    width: 100%;
+  }
+
+  @media (max-width: 768px) {
+    /* on mobile display nothing */
+    display: none;
+  }
+
+  a {
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+
+    img { /* Image INSIDE link tag */
+      height: 20px;
+    }
+  }
+`;
+`;
+
+```
+
 - What is styled.section vs styled.div .img?
 - inline block vs block
+- position: relative;
 
 ### Section & Div
 
