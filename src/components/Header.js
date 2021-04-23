@@ -1,18 +1,50 @@
+import { auth, provider } from "../firebase";
 import styled from "styled-components";
-import react from "react";
 
 const Header = (props) => {
+  const handleAuth = () => {
+    auth
+      .signInWithPopup(provider)
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
+  };
+
   return (
     <Nav>
       <Logo>
-        <img src="images/logo.svg" />
+        <img src="images/logo.svg" alt="" />
       </Logo>
       <NavMenu>
         <a href="/home">
           <img src="/images/home-icon.svg" alt="" />
           <span>HOME</span>
         </a>
+        <a href="/search">
+          <img src="/images/search-icon.svg" alt="" />
+          <span>SEARCH</span>
+        </a>
+        <a href="/watchlist">
+          <img src="/images/watchlist-icon.svg" alt="" />
+          <span>WATCHLIST</span>
+        </a>
+        <a href="/originals">
+          <img src="/images/original-icon.svg" alt="" />
+          <span>ORIGNIALS</span>
+        </a>
+        <a href="/movies">
+          <img src="/images/movie-icon.svg" alt="" />
+          <span>MOVIES</span>
+        </a>
+        <a href="/series">
+          <img src="/images/series-icon.svg" alt="" />
+          <span>SERIES</span>
+        </a>
       </NavMenu>
+      <Login onClick={handleAuth}>Login</Login>
     </Nav>
   );
 };
@@ -100,7 +132,7 @@ const NavMenu = styled.div`
         right: 0px;
         transform-origin: left center;
         transform: scaleX(0);
-        transition: all 250ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s;
+        transition: all 250ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s; /* this creates the slide motion */
         visibility: hidden;
         width: auto;
       }
@@ -112,6 +144,22 @@ const NavMenu = styled.div`
         opacity: 1 !important;
       }
     }
+  }
+`;
+
+const Login = styled.a`
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 8px 16px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  border: 1px solid #f9f9f9;
+  border-radius: 4px;
+  transition: all 0.2s ease 0s;
+
+  &:hover {
+    background-color: #f9f9f9;
+    color: #444;
+    border-color: transparent;
   }
 `;
 
