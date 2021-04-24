@@ -116,6 +116,8 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 # Redux
 
+[Redux ToolKit Video](https://www.youtube.com/watch?v=iBUJVy8phqw&t=28s&ab_channel=TheNetNinja)
+
 Most of this is being used in Header, I guess because the header goes across the entire site, loading on every page? Things like dispatch, selector etc are here for reference.
 
 `npm install react-redux`

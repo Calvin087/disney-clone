@@ -1,0 +1,33 @@
+import styled from "styled-components";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
+
+const ImageSlider = (props) => {
+  let settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+  };
+
+  return (
+    <Slider {...settings}>
+      <div>
+        <h3>hi</h3>
+      </div>
+      <div>
+        <h3>2</h3>
+      </div>
+      <div>
+        <h3>3</h3>
+      </div>
+    </Slider>
+  );
+};
+
+// const ImageSlider = styled.div``;
+
+export default ImageSlider;
