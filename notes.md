@@ -52,6 +52,25 @@ const Content = styled.div`
 
 ```
 
+### Styled Imports
+
+```js
+import Slider from "react-slick";
+
+<Carousel {...settings}>
+  <div>
+    <h3>hi</h3>
+  </div>
+  <div>
+    <h3>2</h3>
+  </div>
+  <div>
+</Carousel>
+
+const Carousel = styled(Slider)``; <---!!!
+
+```
+
 ### Styled Children + Media Queries
 
 ```js

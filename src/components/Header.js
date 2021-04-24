@@ -227,7 +227,7 @@ const Login = styled.a`
 const UserImg = styled.img`
   height: 100%;
   border-radius: 50%;
-  width: 100%;
+  min-width: 50px;
   height: 100%;
 `;
 
