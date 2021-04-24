@@ -4,10 +4,13 @@ import {
   selectUserEmail,
   selectUserName,
   selectUserPhoto,
+  setSignOutState,
   setUserLoginDetails,
 } from "../features/user/userSlice";
 import { useDispatch, userDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { useEffect } from "react";
+import { useState } from "react";
 
 const Header = (props) => {
   const dispatch = useDispatch();
@@ -16,15 +19,36 @@ const Header = (props) => {
   const userPhoto = useSelector(selectUserPhoto);
   const userEmail = useSelector(selectUserEmail);
 
+  useEffect(() => {
+    auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        setUser(user);
+        history.push("/home");
+      }
+    });
+  }, [userName]);
+
   const handleAuth = () => {
-    auth
-      .signInWithPopup(provider)
-      .then((result) => {
-        setUser(result.user); // calling func from inside promise
-      })
-      .catch((error) => {
-        alert(error.message);
-      });
+    if (!userName) {
+      auth
+        .signInWithPopup(provider)
+        .then((result) => {
+          setUser(result.user); // calling func from inside promise
+        })
+        .catch((error) => {
+          alert(error.message);
+        });
+    } else if (userName) {
+      auth
+        .signOut()
+        .then(() => {
+          dispatch(setSignOutState());
+          history.push("/");
+        })
+        .catch((error) => {
+          alert(error.message);
+        });
+    }
   };
 
   const setUser = (user) => {
@@ -44,7 +68,9 @@ const Header = (props) => {
       <Logo>
         <img src="images/logo.svg" alt="" />
       </Logo>
-      {userName ? (
+      {!userName ? (
+        <Login onClick={handleAuth}>Login</Login>
+      ) : (
         <>
           <NavMenu>
             <a href="/home">
@@ -72,10 +98,13 @@ const Header = (props) => {
               <span>SERIES</span>
             </a>
           </NavMenu>
-          <UserImg src={userPhoto} alt={userName} />
+          <SignOut>
+            <UserImg src={userPhoto} alt={userName} />
+            <DropDown>
+              <span onClick={handleAuth}>Sign Out</span>
+            </DropDown>
+          </SignOut>
         </>
-      ) : (
-        <Login onClick={handleAuth}>Login</Login>
       )}
     </Nav>
   );
@@ -197,6 +226,43 @@ const Login = styled.a`
 
 const UserImg = styled.img`
   height: 100%;
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+`;
+
+const DropDown = styled.div`
+  position: absolute;
+  top: 48px;
+  right: 0px;
+  background: rgb(19, 19, 19);
+  border: 1px solid rgba(151, 151, 151, 0.34);
+  border-radius: 4px;
+  box-shadow: rgb(0 0 0/ 50%) 0px 0px 18px 0px;
+  padding: 10px;
+  font-size: 14px;
+  letter-spacing: 3px;
+  width: 120px;
+  text-align: center;
+  opacity: 0;
+`;
+
+const SignOut = styled.div`
+  position: relative;
+  display: flex;
+  height: 48px;
+  width: 48px;
+  border-radius: 50px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    ${DropDown} {
+      opacity: 1;
+      transition-duration: 0.4s;
+    }
+  }
 `;
 
 export default Header;
