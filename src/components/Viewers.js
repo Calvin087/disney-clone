@@ -77,7 +77,6 @@ const Wrap = styled.div`
     top: 0;
   }
   video {
-    width: 100%;
     height: 100%;
     position: absolute;
     top: 0px;
@@ -92,6 +91,7 @@ const Wrap = styled.div`
     border-color: rgba(249, 249, 249, 0.8);
     video {
       opacity: 1;
+      object-fit: cover;
     }
   }
 `;
