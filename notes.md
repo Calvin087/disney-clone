@@ -113,3 +113,122 @@ Inside App.js
 ```js
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 ```
+
+# Redux
+
+Most of this is being used in Header, I guess because the header goes across the entire site, loading on every page? Things like dispatch, selector etc are here for reference.
+
+`npm install react-redux`
+
+`npm install @reduxjs/toolkit` [info](https://www.npmjs.com/package/@reduxjs/toolkit)
+
+**Setting up the redux store**
+
+```js
+import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
+
+export default configureStore({
+  reducer: {},
+  middleware: getDefaultMiddleware({
+    // default middleware
+    serializableCheck: false,
+  }),
+});
+```
+
+**Creating a Slice**
+
+- What is a slice?
+
+```js
+import { createSlice } from "@reduxjs/toolkit";
+
+// When the app starts, everything is empty.
+
+const initialState = {
+  name: "",
+  email: "",
+  photo: "",
+};
+
+const userSlice = createSlice({
+  name: "user",
+  initialState,
+  reducers: {
+    // When the user logs in, set these deets
+    setUserLoginDetails: (state, action) => {
+      state.name = action.payload.name;
+      state.email = action.payload.email;
+      state.photo = action.payload.photo;
+    },
+
+    // When the logs out, set these deets tp null
+    setSignOutState: (state) => {
+      state.name = null;
+      state.email = null;
+      state.photo = null;
+    },
+  },
+});
+
+// exporting functions from userSlice...
+export const { setUserLoginDetails, setSignOutState } = userSlice.actions;
+
+export const selectUserName = (state) => state.user.name; // give whole app access?
+export const selectUserEmail = (state) => state.user.email;
+export const selectUserPhoto = (state) => state.user.photo;
+
+export default userSlice.reducer; // exporting the reducer???
+```
+
+**Wrapping the app in a redux provider**
+
+```js
+import { Provider } from "react-redux";
+import store from "./app/store";
+
+ReactDOM.render(
+  <React.StrictMode>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </React.StrictMode>,
+  document.getElementById("root")
+);
+```
+
+**Helpers**
+
+```js
+import { userDispatch, useSelector } from "react-redux";
+```
+
+Dispatching actions to `app/store.js`
+Selector allows retrieval from `app/store.js`
+
+**Dispatching Payloads**
+
+```js
+const handleAuth = () => {
+  auth
+    .signInWithPopup(provider)
+    .then((result) => {
+      setUser(result.user); // calling func from inside promise
+    })
+    .catch((error) => {
+      alert(error.message);
+    });
+};
+
+const setUser = (user) => {
+  dispatch(
+    // dispatching info to which store?
+    setUserLoginDetails({
+      // this store
+      name: user.displayName, // payload
+      email: user.email, // payload
+      photo: user.photoURL, // payload
+    })
+  );
+};
+```
