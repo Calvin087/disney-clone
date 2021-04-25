@@ -115,6 +115,27 @@ const Logo = styled.a`
 
 ```
 
+### Passing Props to Styled Components
+
+```js
+
+<Container img={detailData.backgroundImg}> // inside render
+
+const Container = styled.div` // outside render
+  background-position: top;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url("${(props) => props.img}");
+  position: relative;
+  min-height: calc(100vh - 250px);
+  overflow: hidden;
+  display: block;
+  top: 72px;
+  padding: 0 calc(3.5vw + 5px);
+`;
+
+```
+
 - What is styled.section vs styled.div .img?
 - inline block vs block
 - position: relative;

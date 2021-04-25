@@ -8,7 +8,7 @@ import {
   setUserLoginDetails,
 } from "../features/user/userSlice";
 import { useDispatch, userDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useEffect } from "react";
 import { useState } from "react";
 
@@ -66,7 +66,9 @@ const Header = (props) => {
   return (
     <Nav>
       <Logo>
-        <img src="images/logo.svg" alt="" />
+        <Link to="/home">
+          <img src="images/logo.svg" alt="" />
+        </Link>
       </Logo>
       {!userName ? (
         <Login onClick={handleAuth}>Login</Login>
