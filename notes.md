@@ -1,3 +1,14 @@
+- [Media Queries](#media-queries)
+    - [Research this a bit](#research-this-a-bit)
+- [Styled Components](#styled-components)
+    - [Styled Imports](#styled-imports)
+    - [Styled Children + Media Queries](#styled-children--media-queries)
+    - [Passing Props to Styled Components](#passing-props-to-styled-components)
+    - [Section & Div](#section--div)
+- [React Router Dom](#react-router-dom)
+- [Redux ToolKit](#redux-toolkit)
+- [Firebase Data using Switch Statement](#firebase-data-using-switch-statement)
+
 # Media Queries
 
 ### Research this a bit
@@ -117,6 +128,8 @@ const Logo = styled.a`
 
 ### Passing Props to Styled Components
 
+[Passing props to styledComponents](https://styled-components.com/docs/basics#attaching-additional-props)
+
 ```js
 
 <Container img={detailData.backgroundImg}> // inside render
@@ -154,7 +167,7 @@ Inside App.js
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 ```
 
-# Redux
+# Redux ToolKit
 
 [Redux ToolKit Video](https://www.youtube.com/watch?v=iBUJVy8phqw&t=28s&ab_channel=TheNetNinja)
 
