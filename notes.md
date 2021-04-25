@@ -253,3 +253,32 @@ const setUser = (user) => {
   );
 };
 ```
+
+# Firebase Data using Switch Statement
+
+```js
+let recommends = [];
+let newDisney = [];
+let originals = [];
+let trending = [];
+
+  useEffect(() => {
+    db.collection("movies").onSnapshot((snapshot) => {
+      snapshot.docs.map((doc) => {
+        switch (doc.data().type) {
+          case "recommend":
+            recommends = [...recommends, { id: doc.id, ...doc.data() }];
+            break;
+          case "new":
+            newDisneys = [...newDisneys, { id: doc.id, ...doc.data() }];
+            break;
+          case "original":
+            originals = [...originals, { id: doc.id, ...doc.data() }];
+            break;
+          case "trending":
+            trending = [...trending, { id: doc.id, ...doc.data() }];
+            break;
+        }
+      });
+    });
+```

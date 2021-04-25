@@ -1,43 +1,23 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectTrending } from "../features/movie/movieSlice";
 
 const Trending = (props) => {
+  const movies = useSelector(selectTrending);
+  // Home has filled the store with all the info, now we're retrieving from the store
   return (
     <Container>
       <h4>Trending</h4>
       <Content>
-        <Wrap>
-          <Link to="/">
-            <img
-              src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/0ECD36DD35658155915685271440833C29ED87E788CF8AE111AA6BCA6B939C37/scale?width=400&aspectRatio=1.78&format=jpeg"
-              alt=""
-            />
-          </Link>
-        </Wrap>
-        <Wrap>
-          <Link to="/">
-            <img
-              src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/501783804F435A386DBC4736F529A8EF664B1817CCB0B552E52D825B85B0A97B/scale?width=400&aspectRatio=1.78&format=jpeg"
-              alt=""
-            />
-          </Link>
-        </Wrap>
-        <Wrap>
-          <Link to="/">
-            <img
-              src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/6EA416AD3B15FCC1BADC817A932A57FFF707556DB2233FFCB4CFEB7C8EEDE23C/scale?width=400&aspectRatio=1.78&format=jpeg"
-              alt=""
-            />
-          </Link>
-        </Wrap>
-        <Wrap>
-          <Link to="/">
-            <img
-              src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/509E4D9F0BF98A9DC4CDD38954380782F6AB2664E503CC7652A37D18D06666BF/scale?width=400&aspectRatio=1.78&format=jpeg"
-              alt=""
-            />
-          </Link>
-        </Wrap>
+        {movies &&
+          movies.map((movie, key) => (
+            <Wrap key={key}>
+              <Link to={"/detail/" + movie.id}>
+                <img src={movie.cardImg} alt={movie.title} />
+              </Link>
+            </Wrap>
+          ))}
       </Content>
     </Container>
   );
